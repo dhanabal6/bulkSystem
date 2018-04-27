@@ -9,6 +9,7 @@ import {
   ControlLabel,
   Button
 } from "react-bootstrap";
+import readXlsxFile from 'read-excel-file';
 
 import forms from "./forms";
 import { validate } from "../logic/message";
@@ -18,6 +19,7 @@ class MailForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: ''
     };
   }
 
@@ -26,7 +28,7 @@ class MailForm extends Component {
     let email = document.getElementById("formEmailText").value;
     let subject = document.getElementById("formSubjectText").value;
     let message = document.getElementById("formControlsTextarea").value;
-    let file = document.getElementById("formControlsFile").files[0];
+    let file = document.getElementById("formControlsFiles").files[0];
     const formData = new FormData();
     formData.append("email", email);
     formData.append("subject", subject);
@@ -38,14 +40,24 @@ class MailForm extends Component {
   };
 
   onFileChange = () => {
-    let fileName = document.getElementById("formControlsFile").files[0];
+    let fileName = document.getElementById("formControlsFiles").files[0];
     this.refs.uploadFilename.innerHTML = fileName.name;
   };
+
+  onexcelFileChange = () =>{
+    let excelFileName = document.getElementById("formControlsFile").files[0];
+    readXlsxFile(excelFileName).then((data) => {
+      const mailIds = data.toString();
+      this.setState({email: mailIds});
+    })
+    
+  }
 
   render() {
     const location = this.props.location.pathname;
     const currentUrl = location.split("/");
     const emailUrl = currentUrl[1];
+    console.log(this.state.email);
     return (
       <div className="container">
         <div className="headingTop">
@@ -83,11 +95,22 @@ class MailForm extends Component {
                     type="text"
                     className="mailSec"
                     ref="email"
+                    value={this.state.email}
                     name="email"
-                    placeholder="Mailid"
+                    placeholder="Import Your Mailids"
                   />
                   <InputGroup.Addon>
+                <FormGroup controlId="formControlsFile" className="excelFiles">
+                  <ControlLabel className="excelfileUpload">
                     <i className="fa fa-send-o" />
+                 </ControlLabel>
+                  <FormControl
+                  type="file"
+                  name="excelfile"
+                  ref="excelfile"
+                  onChange={this.onexcelFileChange}
+                />
+                </FormGroup>
                   </InputGroup.Addon>
                 </InputGroup>
               </FormGroup>
@@ -109,7 +132,7 @@ class MailForm extends Component {
                   placeholder="Message"
                 />
               </FormGroup>
-              <FormGroup controlId="formControlsFile" className="fileSec">
+              <FormGroup controlId="formControlsFiles" className="fileSec">
                 <ControlLabel className="fileUpload">
                   <i className="fa fa-file" />
                 </ControlLabel>

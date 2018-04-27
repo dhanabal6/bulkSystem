@@ -593,6 +593,32 @@ display:inline-block;
  background-image: none;
 }
 
+.excelFiles > input[type=file] {
+display:none;
+margin:10px;
+}
+
+.excelFiles > input[type=file] + .excelfileUpload {
+display:inline-block;
+}
+.excelFiles > input[type=file]:active + .excelfileUpload {
+ background-image: none;
+}
+
+.excelFiles{
+  margin-bottom: 0px;
+}
+.excelfileUpload > i{
+  color: #fff;
+  font-size: 18px;
+}
+.excelfileUpload{
+  text-align: left;
+  width: auto;
+  display: inline-flex;
+  padding-right: 8px;
+}
+
 .fileUpload{
   text-align: left;
   width: auto;
