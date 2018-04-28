@@ -12,7 +12,7 @@ const User = require("../model/User");
 
 const Storage = multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, "./public/upload");
+        callback(null, "./public/upload/documents");
     },
     filename: function (req, file, callback) {
         callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
@@ -91,6 +91,7 @@ router.get("/api/logout", (req, res) => {
 router.post('/api/sendemail', (req,res) => {
  upload(req, res,  (err) => {
     if (err) throw err;
+    console.log(req.body);
     let fileName;
     let filePath;
     let fileType;
@@ -98,7 +99,9 @@ router.post('/api/sendemail', (req,res) => {
       fileName = val.filename;
       filePath = val.path;
       fileType = val.mimetype;
-    })
+    });
+  const mailId = req.body.mailId;
+  const password = req.body.password;
   const emailId = req.body.email;
   const subject = req.body.subject;
   const message = req.body.message;
@@ -112,13 +115,13 @@ router.post('/api/sendemail', (req,res) => {
           service: "gmail",
           host: "smtp.gmail.com",
           auth: {
-            user: "dhanabal.kurinjie@gmail.com",
-            pass: "dhana11503198"
+            user: mailId,
+            pass: password
           }
         });
     const mailOptions = {
           to: mailIds,
-          from: "dhanabal.kurinjie@gmail.com",
+          from: mailId,
           subject: subject,
           text:
             "Hello " +

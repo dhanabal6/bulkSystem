@@ -38,7 +38,7 @@ class RegisterForm extends Component {
               />
               <Field
                 name="password"
-                component={forms.Text}
+                component={forms.Password}
                 placeholder="Password"
               />
               <RaisedButton

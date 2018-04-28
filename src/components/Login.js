@@ -42,7 +42,7 @@ class LoginForm extends Component {
               <Field
                 name="password"
                 type="password"
-                component={forms.Text}
+                component={forms.Password}
                 placeholder="Password"
               />
               <Field

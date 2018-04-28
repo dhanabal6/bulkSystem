@@ -1,5 +1,5 @@
 :root {
-  --brandColor: #0009bc;
+  --brandColor: #455ede;
   --primary: #00bc8e;
   --secondary: #dc3545;
   --black: #262626;
@@ -211,6 +211,7 @@ header {
 .valid-green {
   color: var(--primary);
   align-self: center;
+  margin-left: 40px;
 }
 
 .InputValidationError {
@@ -437,18 +438,19 @@ header {
 }
 
 div[role="menu"]  {
-    background-color: var(--brandColor) !important;
+    background-color: #415ad8 !important;
     color: #fff !important;
     padding: 0px !important;
     margin: 0px !important;
 }
 
 span[role="menuitem"] > div > div {
+  background-color: #415ad8 !important;
   padding: 0px 16px 0px 55px !important;
 } 
 .whatsappBtn{    
     padding: 35px;
-    background-color: #16d616ab;
+    background-color: #3ebe2b;
     border-radius: 10px;
     opacity: 0.5;
     text-align: center;
@@ -461,7 +463,7 @@ span[role="menuitem"] > div > div {
 }
 .mailBtn{
   padding: 35px;
-  background-color: #ff0000;
+  background-color: #e81112;
   border-radius: 10px;
   text-align: center;
   opacity: 0.5;
@@ -485,7 +487,7 @@ background-size: 75%; */
 }
 .smsBtn{
     padding: 35px;
-    background-color: #ffa500;
+    background-color: #e96500;
     border-radius: 10px;
     text-align: center;
     opacity: 0.5;
@@ -517,7 +519,7 @@ background-size: 75%; */
 
 /* mailForm */
 .sideButton > div > .whatsappBtn{
-  padding: 20px;
+  padding: 23px;
   margin-top: 30px;
 }
 
@@ -548,20 +550,22 @@ background-size: 75%; */
 }
 .formContainer{
   display: flex;
-  margin-top:40px; 
+  margin-top:40px;
+  margin-bottom: 20px; 
 }
 .mailSec{
   height: 40px;
-  width: 262px !important;
+  width: 220px !important;
   display: inline-flex;
+  border-left:0px; 
 }
 .subjectSec{
   height: 40px;
-  width: 300px;
+  width: 333px;
 }
 textarea.form-control {
   height: 150px !important;
-  width: 300px;
+  width: 333px;
 }
 .sendButton > i {
  font-size: 22px;
@@ -573,23 +577,31 @@ textarea.form-control {
   font-size: 16px;
   color: #fff;
   font-weight: 600; 
-  background-color: #ff0000;
+  padding: 10px 60px;
+  position: relative;
+  left:35px;
+  background-color: #e81112;
 }
 .sendButton:hover{
  font-size: 16px;
   color: #fff;
   font-weight: 600; 
-  background-color: #ff0000; 
+  background-color: #e81112 !important; 
 }
-
-.fileSec > input[type=file] {
+.sendButton:active{
+ font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  background-color: #e81112 !important; 
+}
+.files > input[type=file] {
 display:none;
 margin:10px;
 }
-.fileSec > input[type=file] + .fileUpload {
+.files > input[type=file] + .fileUpload {
 display:inline-block;
 }
-.fileSec > input[type=file]:active + .fileUpload {
+.files > input[type=file]:active + .fileUpload {
  background-image: none;
 }
 
@@ -605,40 +617,105 @@ display:inline-block;
  background-image: none;
 }
 
+.importExcel{
+  background-color: #fff;
+  padding: 4px;
+  border-right: 0px !important;
+}
+.importFiles{
+  background-color: #fff;
+  padding: 4px;
+  border-right: 0px !important; 
+}
+
 .excelFiles{
   margin-bottom: 0px;
 }
+.files{
+  margin-bottom: 0px;
+}
+
+.fileUpload > i{
+  color: #fff;
+  font-size: 15px;
+}
+.fileUpload > span {
+  color: #fff;
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: normal;
+}
 .excelfileUpload > i{
   color: #fff;
-  font-size: 18px;
+  font-size: 15px;
+}
+.excelfileUpload > span {
+  color: #fff;
+  margin-left: 8px;
+  font-size: 12px;
+  font-weight: normal;
 }
 .excelfileUpload{
+  margin-bottom: 0px;
+  border: 1px solid #fff;
+  background-color: var(--brandColor);
   text-align: left;
   width: auto;
   display: inline-flex;
-  padding-right: 8px;
+  padding: 4px;
 }
 
 .fileUpload{
+  margin-bottom: 0px;
+  border: 1px solid #fff;
+  background-color: var(--brandColor);
   text-align: left;
   width: auto;
   display: inline-flex;
-  padding-right: 8px;
-}
-.fileUpload > i {
-  font-size: 24px;
-}
-.fileSec > .uploadFilename {
-  font-weight: bold;
+  padding: 4px 10px 4px 10px;
 }
 
-.input-group-addon{
-  width: auto;
+.fileSec{
   height: 40px;
-  background-color: var(--brandColor);
-  color: #fff;
+  width: 220px !important;
+  border-left: 0px;
+}
+.emailAddon {
+  background-color: #fff;
+  border-right: 0px;
+  height: 40px;
+  width: auto;
+}
+.passwordAddon {
+  background-color: #fff;
+  border-right: 0px;
+  height: 40px;
+  width: auto; 
+}
+.EmailSec {
+  height: 40px !important;
+  width: 300px !important;
+} 
+.passwordSec {
+  height: 40px !important;
+  width: 300px !important;
 }
 
-.input-group-addon > i {
-  font-size: 16px;
+.user-icon{
+  background-color: #143ac3 !important; 
+}
+.user-icon > div > svg{
+  color: #143ac3 !important;
+  color: rgba(0, 0, 0, 0.87); 
+  fill: rgb(255, 255, 255);
+}
+.user-icon:hover > div > svg {
+    color: #143ac3 !important;
+    fill: #143ac3 !important;
+}
+.user-icon:hover{
+ background-color: #fff !important;  
+}
+.user-icon:active , .user-icon:focus{
+  background-color: #fff !important;
 }
