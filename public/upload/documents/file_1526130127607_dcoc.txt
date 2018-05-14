@@ -1,0 +1,86 @@
+Shiva History
+-------------
+
+Shiva (/'?iv?/; Sanskrit: ???, IAST: Siva, lit. the auspicious one) is one of the principal deities of Hinduism. He is the Supreme Being within Shaivism, one of the major traditions within contemporary Hinduism.[10][11]
+
+Shiva is the "destroyer of evil and the transformer" within the Trimurti,
+ the Hindu trinity that includes Brahma and Vishnu.[1][12] In Shaivism tradition, Shiva is the Supreme being who creates,
+ protects and transforms the universe.[13][14][15] In the goddess tradition of Hinduism called Shaktism, the goddess is described as supreme, 
+ yet Shiva is revered along with Vishnu and Brahma. A goddess is stated to be the energy and creative power (Shakti) of each, with Parvati
+ the equal complementary partner of Shiva.[9][16] He is one of the five equivalent deities in Panchayatana puja of the Smarta tradition of Hinduism.[10]
+
+According to the Shaivism sect, the highest form of Shiva is formless, limitless, transcendent and unchanging absolute Brahman,[17] and the primal Atman (soul, self) of the universe.[18][19][13] Shiva has many benevolent and fearsome depictions. In benevolent aspects, he is depicted as an omniscient Yogi who lives an ascetic life on Mount Kailash[1] as well as a householder with wife Parvati and his two children, Ganesha and Kartikeya. In his fierce aspects, he is often depicted slaying demons. Shiva is also known as Adiyogi Shiva, regarded as the patron god of yoga, meditation and arts.[20][21][22]
+
+The iconographical attributes of Shiva are the serpent around his neck, the adorning crescent moon, the holy river Ganga flowing from his matted hair, the third eye on his forehead, the trishula as his weapon and the damaru. He is usually worshipped in the aniconic form of Lingam.[2] Shiva is a pan-Hindu deity, revered widely by Hindus, in India, Nepal and Sri Lanka.[23][24]
+
+
+Karupasamy
+------
+Karuppu Sami is one of the regional Tamil male deities popular among the rural social groups of Tamil Nadu and parts of Kerala. 
+He is one of the 21 associate folk-deities of Ayyanar and is hence one of the so-called Kaval Deivams of the Tamils.
+
+Karuppu Sami temple is mostly found in the outskirts of the Village. Usually, the whole village contributes to the maintenance of the temple. 
+These temples do not have traditional Gopurams and have large statues of Gods with large eyes, holding weapons like bow and arrow, swords, aruval and
+ others protective weapons. 
+There will also be statues of 7 Kannimaar goddesses (7 virgins) and animals, often a hunting dog, a lion and horse.
+
+Worship
+Karuppanar worship is a very ancient ancestral clan-based worship system. Most officiating priests are non-Brahmins and derive from local lineages
+ that had initiated the cult generations ago. The worship pattern is non-Vedic or non-Agamic through folk tales, songs and arts (Villu pattu, Karakattam, 
+ Koothu etc.). The local priest might offer flowers or vibuthi (holy ash) to the worshippers and may play the role of an oracle for Shamanism. 
+ Various persons within the clan system are identified to play to the role of oracle on annual turn basis. 
+ They undertake vradham and maintain chastity and purity during the period. During the festivals, oracles get into trance state (
+ Saami aadudhal) and deliver counselling messages to the group assembled there without bias. The normal problems addressed are family problems,
+ financial troubles and local community and social issues for resolving within the community group with the agreement of local ancestral god through oracle.
+ Whenever the wishes of the people are granted, they give their offerings to Him based on what they vowed to offer.
+
+Karuppu Sami is also worshipped in 
+Trinidad and Tobago, Guyana, Suriname, Guadeloupe, and Martinique under the name Maangadu karupu or Sangili Karuppar. 
+Offerings of cigarettes and alcohol as well as a sacrifice of a black chicken or goat are made to him here.
+
+Annual festivals
+The village committee would decide on when the annual festival be conducted. The time of the year when this would fall varies with villages and their local
+ customs - each of which will be associated a folk-lore. Generally, the mass convention assembly of a large number of 
+ related family members is organized during the spring season for a period of 2 to 3 days. The commencement of the
+ festival will be with that of a hoisting of the flag and tying the "Kaappu".
+ After this time, villagers cannot go out of the village but can come in from a different village.
+ During this annual gathering, a large number of goats and chicken are sacrificed for Karuppanar. 
+ He is also offered Beedis (country made cigarettes) or cigars and Naravam or some form of modern alcohol.
+ 
+ Ganesh
+ ------
+ One day Goddess Parvati was at home on Mt.Kailash preparing for a bath. As she didn’t want to be disturbed, she told Nandi, her husband Shiva’s Bull, to guard the door and let no one pass. Nandi faithfully took his post, intending to carry out Parvati’s wishes. But, when Shiva came home and naturally wanted to come inside, Nandi had to let him pass, being loyal first to Shiva. Parvati was angry at this slight, but even more than this, at the fact that she had no one as loyal to Herself as Nandi was to Shiva. So, taking the turmeric paste (for bathing) from her body and breathing life into it, she created Ganesha, declaring him to be her own loyal son.
+
+The next time Parvati wished to bathe, she posted Ganesha on guard duty at the door. In due course, Shiva came home, only to find this strange boy telling him he couldn’t enter his own house! Furious, Shiva ordered his army to destroy the boy, but they all failed! Such power did Ganesha possess, being the son of Devi Herself!
+
+This surprised Shiva. Seeing that this was no ordinary boy, the usually peaceful Shiva decided he would have to fight him, and in his divine fury severed Ganesha’s head, killing him instantly. When Parvati learned of this, she was so enraged and insulted that she decided to destroy the entire Creation! Lord Brahma, being the Creator, naturally had his issues with this, and pleaded that she reconsider her drastic plan. She said she would, but only if two conditions were met: one, that Ganesha be brought back to life, and two, that he be forever worshipped before all the other gods.
+
+Shiva, having cooled down by this time, and realizing his mistake, agreed to Parvati’s conditions. He sent Brahma out with orders to bring back the head of the first creature he crosses that is laying with its head facing North. Brahma soon returned with the head of a strong and powerful elephant, which Shiva placed onto Ganesha’s body. Breathing new life into him, he declared Ganesha to be his own son as well, and gave him the status of being foremost among the gods, and leader of all the ganas (classes of beings), Ganapati.
+
+
+Lat and kang
+-----------
+(10.955349, 78.623357)
+
+
+
+Hi Frank,
+I complete that task below i will send link in project-tracker project to deploy heroku
+
+heroku link: https://proctrack.herokuapp.com
+github link: https://github.com/dhanabal6/projectTracker
+
+project-tracker based on project Management system.
+- Design front-end using react,redux,redux-from,material-ui,css
+- Back-end code use nodeJs(express framework),mongodb,passportJs for authentication purpose
+ 
+Project-tracker modules
+========================
+- Login,Resgister,Forgot Password logic (complete)
+- Create Project (complete)
+- Create task add for particular project (complete)
+- User fill daily timesheet (partialy complete) 
+- Genrate Report (pending)
+
+i comfortable for a call on today 7pm (IST) 
+dhanabal t Ping me when you are online.

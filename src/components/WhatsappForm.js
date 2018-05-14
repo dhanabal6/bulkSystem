@@ -1,100 +1,521 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Field, reduxForm } from "redux-form";
-import { withRouter } from "react-router-dom";
-import { RaisedButton, Dialog } from "material-ui";
-import FileUpload from 'material-ui/svg-icons/file/attachment';
+import ReactDOM from "react-dom";
+import { Link, withRouter } from "react-router-dom";
+import {
+  FormControl,
+  FormGroup,
+  InputGroup,
+  ControlLabel,
+  Button
+} from "react-bootstrap";
+import readXlsxFile from "read-excel-file";
 
 import forms from "./forms";
-import { validate } from "../logic/message";
-import { sendMessage } from "../routines";
+import { validate } from "../logic/whatsapp";
+import { sendWhatsapp, userInfo } from "../routines";
 
-class WhatsappForm extends Component {
+class WhatsAppForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mail: []
+      number: "",
+      fileName: ""
     };
   }
 
-  whatsappFormSubmit = values => {
-    console.log(values)
-    console.log(values.file[0]);
-
-  if (values instanceof FileList) {
-    console.log(FileList);
-    return Array.from(values).map(file => file.name).join(', ') || 'No Files Selected';
+  componentWillMount() {
+    this.props.userInfo();
   }
-    // let formData = new formData()
-    //     formData.append('FileList', values.file[0])
-    //     console.log(formData);
 
-    const data = {
-      email: values.email,
-      message: values.message,
-    };
-    console.log(data);
+  whatsappFormSubmit = e => {
+    e.preventDefault();
+    let number = document.getElementById("formNumberText").value;
+    let message = document.getElementById("formControlsTextarea").value;
+    let file = document.getElementById("formControlsFiles").files[0];
+    const formData = new FormData();
+    formData.append("number", number);
+    formData.append("message", message);
+    formData.append("file", file);
+    console.log(formData);
+    this.props.sendWhatsapp(formData);
+    this.refs.whatsappForm.reset();
+    this.setState({ number: "" });
+    this.setState({ fileName: "" });
+  };
 
-    // this.props.sendMessage(values);
+  onFileChange = () => {
+    let fileName = document.getElementById("formControlsFiles").files[0];
+    this.setState({ fileName: fileName.name });
+  };
+
+  onexcelFileChange = () => {
+    let excelFileName = document.getElementById("formControlsFile").files[0];
+    readXlsxFile(excelFileName).then(data => {
+      const numbers = data.toString();
+      this.setState({ number: numbers });
+    });
   };
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
-    if (this.props.isPopup) {
-      this.props.history.push("/");
-    }
-    return (
-        <form onSubmit={handleSubmit(this.whatsappFormSubmit.bind(this))}>
-          <div className="mainform">
-            <Field name="email" component={forms.Text} label="Email" />
-            <Field
-              name="message"
-              component={forms.TextArea}
-              label="Message"
-            />
-            <Field
-             name="file"
-             type="file"
-             component={forms.FileInput}
-            />
-             <FileUpload  />
+    const location = this.props.location.pathname;
+    const currentUrl = location.split("/");
+    const whatsappUrl = currentUrl[1];
+
+    const email = this.props.isEmail;
+    const sms = this.props.isSms;
+    const whatsapp = this.props.isWhatsapp;
+    if (email == undefined && sms == undefined && whatsapp == true) {
+      return (
+        <div className="container">
+          <div className="headingTop">
+            <h3>BULK WHATSAPP MESSAGES</h3>
           </div>
-          <RaisedButton
-            type="submit"
-            label="Send"
-            disabled={pristine || submitting}
-            primary={true}
-            className="button"
-          />
-          <RaisedButton
-            type="reset"
-            label="ReSet"
-            secondary={true}
-            className="button"
-            disabled={pristine || submitting}
-            onClick={reset}
-          />
-         {this.props.isloading && (
-            <span className="valid-green"> Sending... </span>
-          )}
-        </form>
-    );
+          <div className="formSection">
+            <div className="sideButton col-md-4" />
+            <div className="formContainer col-md-8">
+              <form ref="whatsappForm" onSubmit={this.whatsappFormSubmit}>
+                <FormGroup controlId="formNumberText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importExcel">
+                      <FormGroup
+                        controlId="formControlsFile"
+                        className="excelFiles"
+                      >
+                        <ControlLabel className="excelfileUpload">
+                          <i className="fa fa-send-o" />
+                          <span>Import Excel</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="excelfile"
+                          ref="excelfile"
+                          onChange={this.onexcelFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="mailSec"
+                      ref="number"
+                      value={this.state.number}
+                      name="number"
+                      placeholder="Import Your Numbers"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <FormGroup controlId="formControlsTextarea">
+                  <FormControl
+                    componentClass="textarea"
+                    name="message"
+                    className="msgSec"
+                    ref="message"
+                    placeholder="Message"
+                  />
+                </FormGroup>
+
+                <FormGroup controlId="formFilesText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importFiles">
+                      <FormGroup
+                        controlId="formControlsFiles"
+                        className="files"
+                      >
+                        <ControlLabel className="fileUpload">
+                          <i className="fa fa-file" />
+                          <span>Select Files</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="file"
+                          ref="file"
+                          onChange={this.onFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="fileSec"
+                      ref="uploadFilename"
+                      value={this.state.fileName}
+                      name="files"
+                      placeholder="Drop Your Attachments"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <Button type="submit" className="sendwhatsAppButton">
+                  <i className="fa fa-whatsapp" /> SEND MESSAGES
+                </Button>
+                {this.props.isloading && (
+                  <span className="valid-green"> Sending... </span>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (email == true && sms == undefined && whatsapp == true) {
+      return (
+        <div className="container">
+          <div className="headingTop">
+            <h3>BULK WHATSAPP MESSAGES</h3>
+          </div>
+          <div className="formSection">
+            <div className="sideButton col-md-4">
+              <div>
+                <Link to="/sendwhatsapp" active>
+                  <div
+                    className={
+                      whatsappUrl == "sendwhatsapp"
+                        ? "whatsappBtn whatsappEnable"
+                        : "whatsappBtn"
+                    }
+                  >
+                    <i className="fa fa-whatsapp" />
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link to="/sendemail">
+                  <div className="mailBtn">
+                    <i className="fa fa-envelope" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+            <div className="formContainer col-md-8">
+              <form ref="whatsappForm" onSubmit={this.whatsappFormSubmit}>
+                <FormGroup controlId="formNumberText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importExcel">
+                      <FormGroup
+                        controlId="formControlsFile"
+                        className="excelFiles"
+                      >
+                        <ControlLabel className="excelfileUpload">
+                          <i className="fa fa-send-o" />
+                          <span>Import Excel</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="excelfile"
+                          ref="excelfile"
+                          onChange={this.onexcelFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="mailSec"
+                      ref="number"
+                      value={this.state.number}
+                      name="number"
+                      placeholder="Import Your Numbers"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <FormGroup controlId="formControlsTextarea">
+                  <FormControl
+                    componentClass="textarea"
+                    name="message"
+                    className="msgSec"
+                    ref="message"
+                    placeholder="Message"
+                  />
+                </FormGroup>
+
+                <FormGroup controlId="formFilesText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importFiles">
+                      <FormGroup
+                        controlId="formControlsFiles"
+                        className="files"
+                      >
+                        <ControlLabel className="fileUpload">
+                          <i className="fa fa-file" />
+                          <span>Select Files</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="file"
+                          ref="file"
+                          onChange={this.onFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="fileSec"
+                      ref="uploadFilename"
+                      value={this.state.fileName}
+                      name="files"
+                      placeholder="Drop Your Attachments"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <Button type="submit" className="sendwhatsAppButton">
+                  <i className="fa fa-whatsapp" /> SEND MESSAGES
+                </Button>
+                {this.props.isloading && (
+                  <span className="valid-green"> Sending... </span>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (email == undefined && sms == true && whatsapp == true) {
+      return (
+        <div className="container">
+          <div className="headingTop">
+            <h3>BULK WHATSAPP MESSAGES</h3>
+          </div>
+          <div className="formSection">
+            <div className="sideButton col-md-4">
+              <div>
+                <Link to="/sendwhatsapp" active>
+                  <div
+                    className={
+                      whatsappUrl == "sendwhatsapp"
+                        ? "whatsappBtn whatsappEnable"
+                        : "whatsappBtn"
+                    }
+                  >
+                    <i className="fa fa-whatsapp" />
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link to="/sendsms">
+                  <div className="smsBtn">
+                    <i className="fa fa-commenting-o" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+            <div className="formContainer col-md-8">
+              <form ref="whatsappForm" onSubmit={this.whatsappFormSubmit}>
+                <FormGroup controlId="formNumberText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importExcel">
+                      <FormGroup
+                        controlId="formControlsFile"
+                        className="excelFiles"
+                      >
+                        <ControlLabel className="excelfileUpload">
+                          <i className="fa fa-send-o" />
+                          <span>Import Excel</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="excelfile"
+                          ref="excelfile"
+                          onChange={this.onexcelFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="mailSec"
+                      ref="number"
+                      value={this.state.number}
+                      name="number"
+                      placeholder="Import Your Numbers"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <FormGroup controlId="formControlsTextarea">
+                  <FormControl
+                    componentClass="textarea"
+                    name="message"
+                    className="msgSec"
+                    ref="message"
+                    placeholder="Message"
+                  />
+                </FormGroup>
+
+                <FormGroup controlId="formFilesText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importFiles">
+                      <FormGroup
+                        controlId="formControlsFiles"
+                        className="files"
+                      >
+                        <ControlLabel className="fileUpload">
+                          <i className="fa fa-file" />
+                          <span>Select Files</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="file"
+                          ref="file"
+                          onChange={this.onFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="fileSec"
+                      ref="uploadFilename"
+                      value={this.state.fileName}
+                      name="files"
+                      placeholder="Drop Your Attachments"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <Button type="submit" className="sendwhatsAppButton">
+                  <i className="fa fa-whatsapp" /> SEND MESSAGES
+                </Button>
+                {this.props.isloading && (
+                  <span className="valid-green"> Sending... </span>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (email == true && sms == true && whatsapp == true) {
+      return (
+        <div className="container">
+          <div className="headingTop">
+            <h3>BULK WHATSAPP MESSAGES</h3>
+          </div>
+          <div className="formSection">
+            <div className="sideButton col-md-4">
+              <div>
+                <Link to="/sendwhatsapp" active>
+                  <div
+                    className={
+                      whatsappUrl == "sendwhatsapp"
+                        ? "whatsappBtn whatsappEnable"
+                        : "whatsappBtn"
+                    }
+                  >
+                    <i className="fa fa-whatsapp" />
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link to="/sendemail">
+                  <div className="mailBtn">
+                    <i className="fa fa-envelope" />
+                  </div>
+                </Link>
+              </div>
+              <div>
+                <Link to="/sendsms">
+                  <div className="smsBtn">
+                    <i className="fa fa-commenting-o" />
+                  </div>
+                </Link>
+              </div>
+            </div>
+            <div className="formContainer col-md-8">
+              <form ref="whatsappForm" onSubmit={this.whatsappFormSubmit}>
+                <FormGroup controlId="formNumberText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importExcel">
+                      <FormGroup
+                        controlId="formControlsFile"
+                        className="excelFiles"
+                      >
+                        <ControlLabel className="excelfileUpload">
+                          <i className="fa fa-send-o" />
+                          <span>Import Excel</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="excelfile"
+                          ref="excelfile"
+                          onChange={this.onexcelFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="mailSec"
+                      ref="number"
+                      value={this.state.number}
+                      name="number"
+                      placeholder="Import Your Numbers"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <FormGroup controlId="formControlsTextarea">
+                  <FormControl
+                    componentClass="textarea"
+                    name="message"
+                    className="msgSec"
+                    ref="message"
+                    placeholder="Message"
+                  />
+                </FormGroup>
+
+                <FormGroup controlId="formFilesText">
+                  <InputGroup>
+                    <InputGroup.Addon className="importFiles">
+                      <FormGroup
+                        controlId="formControlsFiles"
+                        className="files"
+                      >
+                        <ControlLabel className="fileUpload">
+                          <i className="fa fa-file" />
+                          <span>Select Files</span>
+                        </ControlLabel>
+                        <FormControl
+                          type="file"
+                          name="file"
+                          ref="file"
+                          onChange={this.onFileChange}
+                        />
+                      </FormGroup>
+                    </InputGroup.Addon>
+                    <FormControl
+                      type="text"
+                      className="fileSec"
+                      ref="uploadFilename"
+                      value={this.state.fileName}
+                      name="files"
+                      placeholder="Drop Your Attachments"
+                    />
+                  </InputGroup>
+                </FormGroup>
+                <Button type="submit" className="sendwhatsAppButton">
+                  <i className="fa fa-whatsapp" /> SEND MESSAGES
+                </Button>
+                {this.props.isloading && (
+                  <span className="valid-green"> Sending... </span>
+                )}
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+   if (email == undefined && sms == undefined && whatsapp == undefined) {
+      return (null);
+    }
   }
 }
-
-WhatsappForm = reduxForm({
-  form: "mail",
-  validate
-})(WhatsappForm);
 
 export default withRouter(
   connect(
     (state, props) => ({
-      isloading: state.message.loading,
-      initialValues: state.message.data.find(
-        message => message._id === props.match.params._id
+      isEmail: state.user.data.email,
+      isSms: state.user.data.sms,
+      isWhatsapp: state.user.data.whatsapp,
+      isloading: state.whatsapp.loading,
+      initialValues: state.whatsapp.data.find(
+        whatsapp => whatsapp._id === props.match.params._id
       )
     }),
-    { sendMessage  }
-  )(WhatsappForm)
+    { sendWhatsapp, userInfo }
+  )(WhatsAppForm)
 );

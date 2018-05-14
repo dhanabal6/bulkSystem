@@ -11,6 +11,7 @@ function* sendMailSaga(data) {
     yield put(sendMail.request());
     console.log(data);
     const response = yield call(api.sendMail.bind(null, data));
+    console.log(response);
     yield put(sendMail.success(response));
   } catch (error) {
     console.dir(error);

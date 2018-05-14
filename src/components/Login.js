@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { RaisedButton } from "material-ui";
+import { RaisedButton, Dialog } from "material-ui";
 
 import forms from "./forms";
 import { validate } from "../logic/login";
@@ -11,7 +11,7 @@ import { login } from "../routines";
 class LoginForm extends Component {
   loginFormSubmit = values => {
     const data = {
-      name: values.name,
+      emailId: values.emailId,
       password: values.password
     };
     if (values.checker == true) {
@@ -23,9 +23,23 @@ class LoginForm extends Component {
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
+       <Dialog
+        title={
+          <div className="popheader">
+            <span
+              className="close"
+              onClick={this.props.handleClose}
+            >
+              X
+            </span>
+          </div>
+        }
+        modal={false}
+        open={true}
+      >
       <div className="indexform">
         <div className="formwrapper">
-          <div className="login">
+          <div className="loginForm">
             <div className="formHeader">
               <h3>Log In</h3>
             </div>
@@ -35,9 +49,9 @@ class LoginForm extends Component {
               onSubmit={handleSubmit(this.loginFormSubmit.bind(this))}
             >
               <Field
-                name="name"
+                name="emailId"
                 component={forms.Text}
-                placeholder="UserName"
+                placeholder="EmailId"
               />
               <Field
                 name="password"
@@ -57,21 +71,10 @@ class LoginForm extends Component {
                 fullWidth={true}
               />
             </form>
-            <div className="footer">
-{/*              <p>
-                Are You New? Join us{" "}
-                <span
-                  onClick={() => {
-                    this.props.changeForm("register");
-                  }}
-                >
-                  here
-                </span>!
-              </p>
-*/}            </div>
           </div>
         </div>
       </div>
+      </Dialog>
     );
   }
 }
@@ -86,8 +89,9 @@ export default withRouter(
     (state, props) => {
       const obj = JSON.parse(localStorage.getItem("rememberMe")) || {};
       return {
+        isloading: state.user.loading,
         initialValues: {
-          name: obj.name,
+          emailId: obj.emailId,
           password: obj.password
         }
       };

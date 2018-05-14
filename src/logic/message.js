@@ -1,6 +1,6 @@
 export function validate(values) {
   const errors = {};
-  const requiredFields = ['number', 'message'];
+  const requiredFields = ['mailId', 'password', 'subject', 'message'];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';

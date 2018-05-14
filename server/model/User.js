@@ -6,7 +6,13 @@ const bcrypt = require('bcrypt-nodejs');
 const userSchema = new Schema({
   name: String,
   emailId: String,
-  password: String
+  password: String,
+  phonenumber: Number,
+  email: Boolean,
+  sms: Boolean,
+  whatsapp: Boolean,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 },
 { timestamps: true }
 );
@@ -39,7 +45,11 @@ userSchema.methods.joiValidate = (obj) => {
   const schema = {
     name: Joi.string().min(2).max(30),
     emailId: Joi.string().email().required(),
-    password: Joi.string()
+    password: Joi.string(),
+    phonenumber: Joi.number(),
+    email: Joi.boolean(),
+    sms: Joi.boolean(),
+    whatsapp: Joi.boolean()
   };
   const { error, value } = Joi.validate(obj, schema);
   return error;

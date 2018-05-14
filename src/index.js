@@ -5,7 +5,9 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import registerServiceWorker from './registerServiceWorker';
+
 import './style.css';
+import './css/style.css';
 
 const rootEl = document.getElementById('root');
 

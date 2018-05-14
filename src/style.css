@@ -52,8 +52,8 @@ li {
 
 .input input[type="text"],
 .person-flex input[type="text"],
-input[type="password"],
-input[type="email"],
+.input input[type="password"],
+.input input[type="email"],
 select {
   color: var(--gray);
   width: 100%;
@@ -122,7 +122,7 @@ label {
   margin: 0px;
 }
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -279,65 +279,34 @@ header {
   margin: 0 auto;
 }
 
-.formHeader {
+/* .formHeader {
   padding: 15px 10px;
-}
+} */
 
 .formBody {
   padding: 10px;
 }
 
-.checkboxWrap {
+.loginForm > form > .checkboxWrap {
   display: flex;
   align-items: baseline;
   justify-content: center;
 }
-
-.login,
-.regiter,
-.forgot,
-.reset {
-  position: absolute;
-  background: #fff;
-  padding: 15px;
-  border-radius: 3px;
-  backface-visibility: hidden;
-  width: 400px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+.registerForm > form > .checkboxWrap {
+    display: inline-flex;
+    -ms-flex-align: baseline;
+    align-items: baseline;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-left: 15px;
 }
 
-.regiter,
-.forgot {
-  animation: flip .6s;
-}
 
-@keyframes flip {
-  from {
-      transform: rotateY(-180deg);
-  }
-  to {
-      transform: rotateY(0deg);
-  }
-}
 
-.login,
-.reset {
-  animation: flip2 1s;
-}
-
-@keyframes flip2 {
-  from {
-      transform: rotateY(180deg);
-  }
-  to {
-      transform: rotateY(0deg);
-  }
-}
-
-.login h3,
-.regiter h3,
-.forgot h3,
-.reset h3 {
+.loginForm h3,
+.registerForm h3,
+.forgotFrom h3,
+.resetFrom h3 {
   margin: 0px;
 }
 
@@ -372,12 +341,7 @@ header {
   .formwrapper {
     width: 100%;
   }
-  .login,
-  .regiter,
-  .forgot,
-  .reset {
-    width: 100%;
-  }
+
   label {
     text-align: left;
   }
@@ -444,6 +408,10 @@ div[role="menu"]  {
     margin: 0px !important;
 }
 
+a[role="menuitem"]  {
+  background-color: #415ad8 !important;
+ 
+}
 span[role="menuitem"] > div > div {
   background-color: #415ad8 !important;
   padding: 0px 16px 0px 55px !important;
@@ -454,20 +422,25 @@ span[role="menuitem"] > div > div {
     border-radius: 10px;
     opacity: 0.5;
     text-align: center;
-    display: inline-flex;
+    display: inline-block;
+}
+
+.whatsappBtn:hover{
+  opacity: 1;
 }
 
 .whatsappBtn > i {
   font-size: 40px;
   color: #fff;
 }
+
 .mailBtn{
   padding: 35px;
   background-color: #e81112;
   border-radius: 10px;
   text-align: center;
   opacity: 0.5;
-  display: inline-flex;
+  display: inline-block;
 /*   background: 
 radial-gradient(circle at 0% 0%,transparent 15%, #ff0000 15%) no-repeat,
 radial-gradient(circle at 100% 0%,transparent 15%, #ff0000  15%) no-repeat,
@@ -491,11 +464,14 @@ background-size: 75%; */
     border-radius: 10px;
     text-align: center;
     opacity: 0.5;
-    display: inline-flex;
+    display: inline-block;
 }
 .smsBtn > i {
   font-size: 40px;
   color: #fff;
+}
+.smsBtn:hover{
+  opacity: 1;
 }
 
 .whatsappCtn{
@@ -518,9 +494,14 @@ background-size: 75%; */
 }
 
 /* mailForm */
-.sideButton > div > .whatsappBtn{
+.sideButton > div > a > .whatsappBtn {
   padding: 23px;
   margin-top: 30px;
+}
+
+.sideButton > div > a > .whatsappBtn:hover{
+    opacity: 1;
+    text-decoration: none;
 }
 
 .sideButton > div > a >.mailBtn{
@@ -531,20 +512,28 @@ background-size: 75%; */
  opacity: 1; 
 }
 
+.sideButton > div > a >.whatsappEnable{
+ opacity: 1; 
+}
+
+.sideButton > div > a >.smsEnable{
+ opacity: 1; 
+}
+
 .sideButton > div > a > .mailBtn > i {
   font-size: 30px;
   color: #fff;
 }
 
-.sideButton > div > .whatsappBtn > i {
+.sideButton > div > a > .whatsappBtn > i {
   font-size: 30px;
   color: #fff;
 }
-.sideButton > div > .smsBtn > i {
+.sideButton > div > a >.smsBtn > i {
   font-size: 30px;
   color: #fff;
 }
-.sideButton > div > .smsBtn{
+.sideButton > div > a >.smsBtn{
   padding: 20px;
   margin-top: 30px;  
 }
@@ -594,6 +583,62 @@ textarea.form-control {
   font-weight: 600; 
   background-color: #e81112 !important; 
 }
+.sendwhatsAppButton > i {
+ font-size: 22px;
+ color: #fff;
+ padding-right: 10px;
+}
+
+.sendwhatsAppButton{
+   font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  padding: 10px 60px;
+  position: relative;
+  left:35px;
+  background-color: #3ebe2b;
+}
+.sendwhatsAppButton:hover{
+ font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  background-color: #3ebe2b !important; 
+}
+.sendwhatsAppButton:active{
+ font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  background-color: #3ebe2b !important; 
+}
+
+.sendsmsButton > i {
+ font-size: 22px;
+ color: #fff;
+ padding-right: 10px;
+}
+
+.sendsmsButton{
+   font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  padding: 10px 60px;
+  position: relative;
+  left:35px;
+  background-color: #e96500;
+}
+.sendsmsButton:hover{
+ font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  background-color: #e96500 !important; 
+}
+.sendsmsButton:active{
+ font-size: 16px;
+  color: #fff;
+  font-weight: 600; 
+  background-color: #e96500 !important; 
+}
+
 .files > input[type=file] {
 display:none;
 margin:10px;
@@ -718,4 +763,48 @@ display:inline-block;
 }
 .user-icon:active , .user-icon:focus{
   background-color: #fff !important;
+}
+
+.footer > p > span{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.serverMsg{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 15px;
+    padding: 30px;
+    background-color: green;
+    color:#fff;
+    position: relative;
+    font-weight: bold;
+}
+.serverErrorMsg{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 15px;
+    padding: 30px;
+    background-color: red;
+    color:#000;
+    position: relative;
+    font-weight: bold;
+}
+.clsCr:hover{
+  cursor: pointer;
+}
+.clsCr{
+   cursor: pointer;
+    display: inline-flex;
+    position: absolute;
+    right: 125px;
+    top: 100px;
+  }
+.clsCrApp
+{  cursor: pointer;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    position: absolute;
+    right: 30px;
+    top: 2px;
 }

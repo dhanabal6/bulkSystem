@@ -1,4 +1,4 @@
-import { register, login, userInfo, logout } from '../routines';
+import { register, login, userInfo, logout, editProfile, forgotPassword, resetPassword } from '../routines';
 
 const initialState = {
   data: {},
@@ -29,6 +29,25 @@ export default function registerReducer(state = initialState, action) {
         ...state,
     };
 
+    case editProfile.TRIGGER:
+      return {
+        ...state,
+     };
+    case editProfile.FAILURE:
+      return {
+        ...state,
+         error: action.payload,
+      };
+    case editProfile.SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+    };
+    case editProfile.FULFILL:
+      return {  
+        ...state,
+    };
+    
     case login.TRIGGER:
       return {
         ...state,
@@ -68,6 +87,44 @@ export default function registerReducer(state = initialState, action) {
         data: action.payload,
     };
     case userInfo.FULFILL:
+      return {  
+        ...state,
+    };
+    
+     case forgotPassword.TRIGGER:
+      return {
+        ...state,
+     };
+    case forgotPassword.FAILURE:
+      return {
+        ...state,
+         error: action.payload,
+      };
+    case forgotPassword.SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+    };
+    case forgotPassword.FULFILL:
+      return {  
+        ...state,
+    };
+
+    case resetPassword.TRIGGER:
+      return {
+        ...state,
+     };
+    case resetPassword.FAILURE:
+      return {
+        ...state,
+         error: action.payload,
+      };
+    case resetPassword.SUCCESS:
+      return {
+        ...state,
+        data: action.payload,
+    };
+    case resetPassword.FULFILL:
       return {  
         ...state,
     };

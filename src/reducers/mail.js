@@ -1,7 +1,7 @@
 import { sendMail } from '../routines';
 
 const initialState = {
-  data: [],
+  data: {},
   loading: false,
   error: null,
 };
@@ -22,6 +22,7 @@ export default function mailReducer(state = initialState, action) {
     case sendMail.SUCCESS:
       return {
         ...state,
+        data: action.payload,
         loading: false,
     };
     case sendMail.FULFILL:

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { RaisedButton } from 'material-ui';
+import { RaisedButton, Dialog } from 'material-ui';
 
 import forms from "./forms";
 import { validate } from "../logic/register";
@@ -10,19 +10,40 @@ import { register } from "../routines";
 
 class RegisterForm extends Component {
   registerFormSubmit = values => {
+    console.log(values);
     const data = {
       name: values.name,
       emailId: values.emailId,
-      password: values.password
+      password: values.password,
+      phonenumber: values.phonenumber,
+      email: values.email,
+      sms: values.sms,
+      whatsapp: values.whatsapp
     };
+    console.log(data);
     this.props.register(data);
   };
+  
   render() {
     const { handleSubmit, pristine, submitting } = this.props;
     return (
+      <Dialog
+        title={
+          <div className="popheader">
+            <span
+              className="close"
+              onClick={this.props.handleClose}
+            >
+              X
+            </span>
+          </div>
+        }
+        modal={false}
+        open={true}
+      >
       <div className="indexform">
         <div className="formwrapper">
-          <div className="regiter">
+          <div className="registerForm">
             <div className="formHeader">
               <h3>Register</h3>
             </div>
@@ -41,16 +62,34 @@ class RegisterForm extends Component {
                 component={forms.Password}
                 placeholder="Password"
               />
+              <Field name="phonenumber" component={forms.Text} placeholder="Phone Number" />
+               <Field
+                name="email"
+                component={forms.Checkbox}
+                label="Email"
+              />
+               <Field
+                name="sms"
+                component={forms.Checkbox}
+                label="SMS"
+              /> 
+              <Field
+                name="whatsapp"
+                component={forms.Checkbox}
+                label="WhatsApp Message"
+              />
               <RaisedButton
                 type="submit"
                 label="Register"
                 disabled={pristine || submitting}
                 primary={true}
                 fullWidth={true}
-              />            </form>
+              />
+              </form>
           </div>
         </div>
       </div>
+      </Dialog>
     );
   }
 }

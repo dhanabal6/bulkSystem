@@ -29,18 +29,18 @@ const User = require('./model/User');
 passport.use(
   new LocalStrategy(
     {
-      usernameField: 'name',
+      usernameField: 'emailId',
       passwordField: 'password'
     },
-    (name, password, done) => {
-      User.findOne({ name: name }, (err, user) => {
+    (emailId, password, done) => {
+      User.findOne({ emailId: emailId }, (err, user) => {
         if (err) return done(err);
-        if (!user) return done(null, false, { message: 'Incorrect username.' });
+        if (!user) return done(null, false, { error: 'Incorrect emailId.' });
         user.comparePassword(password, (err, isMatch) => {
           if (isMatch) {
             return done(null, user);
           } else {
-            return done(null, false, { message: 'Incorrect password.' });
+            return done(null, false, { error: 'Incorrect password.' });
           }
         });
       });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route, withRouter } from "react-router-dom";
 
 import {
   Tabs,
@@ -18,9 +18,11 @@ import EditProfile from "material-ui/svg-icons/social/person-outline";
 import GetHelp from "material-ui/svg-icons/action/help-outline";
 import SignOut from "material-ui/svg-icons/content/reply";
 
+import EditProfileForm from '../EditProfileForm';
+
 import { userInfo, logout } from "../../routines";
 
-class Header extends Component {
+class Header extends Component {  
   componentDidMount() {
     this.props.userInfo();
   }
@@ -31,8 +33,9 @@ class Header extends Component {
   render() {
     const { userData } = this.props;
     return (
+      <div>
       <Toolbar className="toolbar">
-        <header>
+        <header className="header">
           <div className="nav-left">
             <div className="avatar">
               <Avatar />
@@ -57,8 +60,9 @@ class Header extends Component {
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
               targetOrigin={{ horizontal: "right", vertical: "top" }}
 
-            >
+            > 
               <MenuItem 
+                containerElement={<Link to={"/edit/"+ userData._id} />}
               primaryText="Edit Profile" leftIcon={<EditProfile color = {'#fff'}/>}
               style={{color: '#fff', fontSize:'14px',backgroundColor: '#0009bc',fontWeight: 'bold',
               borderBottom: '1px solid rgba(204, 204, 204, 0.56)'}} 
@@ -76,13 +80,18 @@ class Header extends Component {
           </div>
         </header>
       </Toolbar>
+         <Route
+           path="/edit/:userId"
+          render={() => <EditProfileForm  profileFormSubmit={this.profileFormSubmit} />}
+         />
+    </div>
     );
   }
 }
 
-export default connect(
+export default withRouter(connect(
   (state, props) => ({
     userData: state.user.data
   }),
   { userInfo, logout }
-)(Header);
+)(Header));
