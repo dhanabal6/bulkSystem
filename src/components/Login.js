@@ -9,7 +9,7 @@ import { validate } from "../logic/login";
 import { login } from "../routines";
 
 class LoginForm extends Component {
-  loginFormSubmit = values => {
+  loginFormSubmit = (values) => {
     const data = {
       emailId: values.emailId,
       password: values.password

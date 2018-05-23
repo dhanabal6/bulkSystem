@@ -23,7 +23,6 @@ function* loginSaga(data) {
     yield put(login.request());
     const response = yield call(api.login.bind(null, data));
     yield put(login.success(response));
-    yield call(delay, 2000);
     yield put(userInfo.trigger());
     yield put(push('/'));
   } catch (error) {
@@ -39,7 +38,6 @@ function* forgotPasswordSaga(data) {
     yield put(forgotPassword.request());
     const response = yield call(api.forgotPassword.bind(null, data));
     yield put(forgotPassword.success(response));
-    yield call(delay, 2000);
     yield put(userInfo.trigger());
     yield put(push('/'));
   } catch (error) {
@@ -55,7 +53,6 @@ function* resetPasswordSaga(data) {
     yield put(resetPassword.request());
     const response = yield call(api.resetPassword.bind(null, data.payload.token, data.payload.data));
     yield put(resetPassword.success(response));
-    yield call(delay, 2000);
     yield put(userInfo.trigger());
     yield put(push('/'));
   } catch (error) {
@@ -100,7 +97,8 @@ function* editProfileSaga(data) {
       api.editProfile.bind(null, data.payload.userId, data.payload.data)
     );
     yield put(editProfile.success(response));
-    yield put(logout.trigger());
+    yield put(userInfo.trigger());
+    yield put(push('/'));
   } catch (error) {
     yield put(editProfile.failure(error.message));
   } finally {

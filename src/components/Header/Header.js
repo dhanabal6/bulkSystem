@@ -80,10 +80,10 @@ class Header extends Component {
           </div>
         </header>
       </Toolbar>
-         <Route
+         {/*<Route
            path="/edit/:userId"
           render={() => <EditProfileForm  profileFormSubmit={this.profileFormSubmit} />}
-         />
+         />*/}
     </div>
     );
   }

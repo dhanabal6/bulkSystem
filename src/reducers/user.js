@@ -3,12 +3,14 @@ import { register, login, userInfo, logout, editProfile, forgotPassword, resetPa
 const initialState = {
   data: {},
   loading: false,
-  loginState: false,
+  errorMessage: null,
+  message: null,
   error: null,
 };
  
 export default function registerReducer(state = initialState, action) {
   console.log("action.type reducer:" + action.type);
+  console.log(action.payload);
   switch (action.type) {
     case register.TRIGGER:
       return {
@@ -23,6 +25,8 @@ export default function registerReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload,
+        errorMessage: action.payload.error,
+        message: action.payload.message,
     };
     case register.FULFILL:
       return {  
@@ -52,7 +56,6 @@ export default function registerReducer(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        loginState:false,
      };
     case login.FAILURE:
       return {
@@ -63,12 +66,12 @@ export default function registerReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload,
-        loginState: true,
+        errorMessage: action.payload.error,
+        message: action.payload.message,
     };
     case login.FULFILL:
       return {  
         ...state,
-        loginState: true,
         loading: false,
     };
 
@@ -104,6 +107,8 @@ export default function registerReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload,
+        errorMessage: action.payload.error,
+        message: action.payload.message,
     };
     case forgotPassword.FULFILL:
       return {  
@@ -123,6 +128,8 @@ export default function registerReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload,
+        errorMessage: action.payload.error,
+        message: action.payload.message,
     };
     case resetPassword.FULFILL:
       return {  
@@ -142,6 +149,8 @@ export default function registerReducer(state = initialState, action) {
       return {
         ...state,
         data: action.payload,
+        errorMessage: action.payload.error,
+        message: action.payload.message,
     };
     case logout.FULFILL:
       return {  

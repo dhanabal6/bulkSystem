@@ -10,10 +10,8 @@ const resetPassword = (token, data) =>
   axios.post(`/api/resetPassword/${token}`, data).then(res => res.data);
 
 const login = data =>
-  axios.post(`/api/login`, data.payload)
-   .then(res => res.data)
-   .catch(err => err);
-
+  axios.post(`/api/login`, data.payload).then(res => res.data);
+  
 const userInfo = () => 
   axios.get(`/api`).then(res => res.data);
 

@@ -43,10 +43,10 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 
 userSchema.methods.joiValidate = (obj) => {
   const schema = {
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
     emailId: Joi.string().email().required(),
-    password: Joi.string(),
-    phonenumber: Joi.number(),
+    password: Joi.string().required(),
+    phonenumber: Joi.number().required(),
     email: Joi.boolean(),
     sms: Joi.boolean(),
     whatsapp: Joi.boolean()

@@ -96,7 +96,7 @@ router.post("/api/register", (req, res, next) => {
         if (err) {
           res.send(err);
         } else {
-          res.send({message:"Register Success! Your Mail has been Send."});
+          res.send({message:"Register Success! Your Register Mail has been Send."});
         }
       });
       res.send(user);
@@ -106,9 +106,6 @@ router.post("/api/register", (req, res, next) => {
 
 router.post("/api/login", (req, res, next) => {
   console.log("logging in...");
-  const users = User(req.body);
-  const err = users.joiValidate(req.body);
-  if (err) throw err;
   passport.authenticate("local", (error, user, info) => {
     if (error) {
       return next(error);
@@ -285,15 +282,18 @@ router.get("/api/logout", (req, res) => {
 });
 
 router.post("/api/edit/:userId", (req, res) => {
+  const users = User(req.body);
+  const err = users.joiValidate(req.body);
+  if (err) throw err;
   User.findOneAndUpdate(
     { _id: req.params.userId },
     req.body,
     { upsert: true, new: true, runValidators: true },
     (err, data) => {
       if (err) {
-        res.send(err);
+        res.send({error:err});
       } else {
-        res.send({ userData: data });
+        res.send({ message: "Your Profile Updated SuccessFully" });
       }
     }
   );

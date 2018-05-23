@@ -5,8 +5,20 @@ import { Field, reduxForm } from "redux-form";
 import { RaisedButton } from 'material-ui';
 
 import forms from "./forms";
+import Joi from 'joi';
+import createValidator from '../logic/joiReduxForm';
 import { validate } from "../logic/register";
 import { editProfile } from "../routines";
+
+  const schema = {
+    name: Joi.string().min(2).max(30).required(),
+    emailId: Joi.string().email().required(),
+    password: Joi.string().required(),
+    phonenumber: Joi.number().required(),
+    email: Joi.boolean(),
+    sms: Joi.boolean(),
+    whatsapp: Joi.boolean()
+  };
 
 class EditProfileForm extends Component {
   profileFormSubmit = values => {
@@ -83,7 +95,8 @@ class EditProfileForm extends Component {
 
 EditProfileForm = reduxForm({
   form: "register",
-  validate
+  validate,
+  validate: createValidator(schema)
 })(EditProfileForm);
 
 export default withRouter(

@@ -22,56 +22,25 @@ const muiTheme = getMuiTheme({
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showMessage: true
-    };
-  }
-
-  componentWillMount() {
+  componentDidMount() {
     this.props.userInfo();
   }
 
-showMessage = () => {
-   this.setState({showMessage: false});
-  };
   render() {
     const { userId } = this.props;
-    console.log(this.props.message);
-    console.log(this.props.error);
     if (!userId) {
      return (
-        <div>
-         {this.state.showMessage && this.props.message && (
-          <div className="container">
-        <div className="serverMsg">
-         <div className="clsCrApp" onClick={this.showMessage}>X</div>
-         <div className="successCtn">{this.props.message}</div>
-        </div></div>)
-        }
-
-       {this.props.error && this.state.showMessage && (
-        <div className="container">
-        <div className="serverErrorMsg">
-         <div className="clsCrApp" onClick={this.showMessage}>X</div>
-         <div className="failureCtn">{this.props.error}</div>
-        </div>
-        </div>
-        )
-       }
         <div className="fullLoading bouncing-loader">
           <div />
           <div />
           <div />
-        </div>
         </div>
       );
     } else if (userId === "guest") {
       return (
         <MuiThemeProvider muiTheme={muiTheme}>
           <BrowserRouter>
-            <Route path="/" component={HomePage} />
+            <Route path="/" component={() => <HomePage errorMessage={this.props.errorMessage} message={this.props.message} />} />
           </BrowserRouter>
         </MuiThemeProvider>
       );
@@ -97,8 +66,8 @@ showMessage = () => {
 export default connect(
   (state, props) => ({
     userId: state.user.data._id,
-    message: state.user.data.message,
-    error: state.user.data.error
+    errorMessage: state.user.errorMessage,
+    message: state.user.message
   }),
   { userInfo }
 )(App);

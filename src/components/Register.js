@@ -5,8 +5,20 @@ import { Field, reduxForm } from "redux-form";
 import { RaisedButton, Dialog } from 'material-ui';
 
 import forms from "./forms";
+import Joi from 'joi';
+import createValidator from '../logic/joiReduxForm';
 import { validate } from "../logic/register";
 import { register } from "../routines";
+
+  const schema = {
+    name: Joi.string().min(2).max(30).required(),
+    emailId: Joi.string().email().required(),
+    password: Joi.string().required(),
+    phonenumber: Joi.number().required(),
+    email: Joi.boolean(),
+    sms: Joi.boolean(),
+    whatsapp: Joi.boolean()
+  };
 
 class RegisterForm extends Component {
   registerFormSubmit = values => {
@@ -96,7 +108,8 @@ class RegisterForm extends Component {
 
 RegisterForm = reduxForm({
   form: "register",
-  validate
+  validate,
+  validate: createValidator(schema)
 })(RegisterForm);
 
 export default withRouter(

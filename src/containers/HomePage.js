@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import LogIn from "../components/Login";
 import Register from "../components/Register";
@@ -28,7 +29,8 @@ class HomePage extends Component {
     const res = currentUrl[1];
     this.state = {
       isPopupOpen: false,
-      index: -1
+      index: -1,
+      showMessage: true
     };
   }
 
@@ -40,10 +42,31 @@ class HomePage extends Component {
     this.props.history.push("/");
   };
 
+showMessage = () => {
+   this.setState({showMessage: false});
+  };
+
   render() {
     return (
       <div className="homePage">
     <div className="main">
+     {this.state.showMessage && this.props.message && (
+        <div className="container">
+        <div className="msgalert">
+         <span className="closebtn" onClick={this.showMessage}>X</span>
+         <div className="successCtn">{this.props.message}</div>
+        </div></div>)
+        }
+
+       {this.props.errorMessage && this.state.showMessage && (
+        <div className="container">
+        <div className="alert">
+         <span className="closebtn" onClick={this.showMessage}>X</span>
+         <div className="failureCtn">{this.props.errorMessage}</div>
+        </div>
+        </div>
+        )
+       }
         <header className="headerTemp">
             <div className="wrap">
                 <img src={iphone} height="532" width="252" alt="" className="header-img" />
